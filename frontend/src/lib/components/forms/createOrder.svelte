@@ -44,18 +44,24 @@
 	const { form: formData, enhance } = form;
 </script>
 
-<form bind:this={formElement} use:enhance class="flex flex-col gap-4 text-left">
+<form
+	bind:this={formElement}
+	use:enhance
+	class="flex flex-col gap-4 border-4 text-left {$formData.side === 'BID'
+		? 'border-green-500'
+		: 'border-red-500'}"
+>
 	<Form.Fieldset {form} name="side" class="flex flex-col">
 		<RadioGroup.Root bind:value={$formData.side} class="flex justify-around">
 			<div class="flex flex-col items-center gap-2">
 				<Form.Control let:attrs>
-					<Form.Label class="font-normal">Bid</Form.Label>
+					<Form.Label class="font-green font-normal">Bid</Form.Label>
 					<RadioGroup.Item value="BID" {...attrs} />
 				</Form.Control>
 			</div>
 			<div class="flex flex-col items-center gap-2">
 				<Form.Control let:attrs>
-					<Form.Label class="font-normal">Offer</Form.Label>
+					<Form.Label class="font-red font-normal">Offer</Form.Label>
 					<RadioGroup.Item value="OFFER" {...attrs} />
 				</Form.Control>
 			</div>
@@ -93,5 +99,7 @@
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
-	<Form.Button class="w-full">Place {$formData.side}</Form.Button>
+	<Form.Button class="w-full {$formData.side === 'BID' ? 'bg-green-500' : 'bg-red-500'}"
+		>Place {$formData.side}</Form.Button
+	>
 </form>
